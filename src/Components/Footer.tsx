@@ -9,7 +9,7 @@ const Container = styled.footer`
   width: 100%;
   height: 1000px;
   background-color: ${(props) => props.theme.bgColor};
-  padding: 300px 300px 0px 300px;
+  padding: 300px 0px 0px 0px;
 `;
 
 const FooterBox = styled.div`
@@ -21,6 +21,7 @@ const FooterBox = styled.div`
   font-size: 15px;
   opacity: 0.6;
   font-weight: 600;
+  padding: 200px;
   h2 {
     font-size: 25px;
     font-weight: 600;
@@ -52,9 +53,9 @@ const SiteDetail = styled.div`
   width: 100%;
   height: 30%;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
-  padding-top: 40px;
+  padding: 40px 200px 200px 200px;
   span {
-    font-size: 25px;
+    font-size: 20px;
     opacity: 0.7;
     font-weight: 600;
   }
@@ -89,6 +90,7 @@ function Footer() {
           <h2>Etc</h2>
         </FooterEtc>
       </FooterBox>
+      <hr />
       <SiteDetail>
         <span>2023 ~ &copy; 캡스톤 디자인 프로젝트 매칭 플랫폼</span>
       </SiteDetail>

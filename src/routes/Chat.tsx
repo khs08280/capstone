@@ -1,3 +1,4 @@
+import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 
 function Chat() {
@@ -5,6 +6,7 @@ function Chat() {
     <>
       <Header />
       <h1>채팅</h1>
+      <Footer />
     </>
   );
 }
