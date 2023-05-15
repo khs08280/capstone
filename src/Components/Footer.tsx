@@ -9,7 +9,7 @@ const Container = styled.footer`
   width: 100%;
   height: 1000px;
   background-color: ${(props) => props.theme.bgColor};
-  padding: 300px 0px 0px 0px;
+  padding: 100px 0px 0px 0px;
 `;
 
 const FooterBox = styled.div`

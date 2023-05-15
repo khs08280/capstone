@@ -4,10 +4,23 @@ import Chat from "./routes/Chat";
 import CreateProject from "./routes/CreateProject";
 import Profile from "./routes/Profile";
 import Project from "./routes/Project";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+export function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function Router() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Switch>
         <Route path="/profile">
           <Profile />

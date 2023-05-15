@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <Reset />
-      <Router />;
+      <Router />
     </>
   );
 }
