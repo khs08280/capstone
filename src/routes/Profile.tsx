@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import { Link } from "react-router-dom";
 
 const users = {
   id: 1,
@@ -14,7 +14,6 @@ const users = {
 };
 
 const Wrapper = styled.div`
-  background-color: #282828;
   width: 100vw;
   height: 100vh;
   padding: 100px;
@@ -31,16 +30,19 @@ const ProfileBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 1.2rem;
+  span {
+    margin-bottom: 30px;
+  }
 `;
 
 const Chat = styled.div`
-  font-size: 15px;
+  font-size: 1.2rem;
   font-weight: 600;
   border-radius: 30px;
   background-color: yellow;
-  padding: 10px 10px;
+  padding: 10px 20px;
   color: black;
-  margin-top: 20px;
 `;
 
 const Subbox = styled.div`
@@ -52,7 +54,7 @@ const Subbox = styled.div`
   color: white;
   font-weight: 600;
   p {
-    margin-top: 35px;
+    margin: 18px 0px;
   }
 `;
 const ProduceBox = styled.div`
@@ -103,6 +105,9 @@ const StackBox = styled.div`
   color: white;
   span {
     margin-bottom: 30px;
+    &:first-child {
+      font-size: 1.6rem;
+    }
   }
   ul {
     width: 50%;
@@ -111,10 +116,11 @@ const StackBox = styled.div`
   }
   ul > span {
     background-color: #7d92e9;
-    padding: 3px 12px;
-    font-size: 15px;
-    border-radius: 15px;
+    padding: 3px 20px;
+    font-size: 1.6rem;
+    border-radius: 30px;
     appearance: none;
+    color: black;
   }
   align-items: center;
   font-weight: 600;
@@ -122,7 +128,7 @@ const StackBox = styled.div`
 
 const HopePro = styled.div`
   font-weight: 600;
-
+  padding-left: 30px;
   width: 50%;
   height: 100%;
   display: flex;
@@ -131,10 +137,13 @@ const HopePro = styled.div`
   align-items: start;
   color: white;
   span {
-    margin-bottom: 30px;
+    &:first-child {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
   }
   ul {
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -146,6 +155,19 @@ const HopePro = styled.div`
   }
   align-items: center;
 `;
+const CircleStyle = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 7.5px;
+  background-color: yellowgreen;
+  margin-right: 10px;
+`;
+
+const CircleBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`;
 
 function Profile() {
   return (
@@ -156,8 +178,10 @@ function Profile() {
           <Subbox>
             <span>{users.image}</span>
             <p>{users.name}</p>
-            <p>{users.email}</p>
-            <Chat>1대1 채팅</Chat>
+            <p style={{ marginBottom: "50px" }}>{users.email}</p>
+            <Link to={"/chat"}>
+              <Chat>1대1 채팅</Chat>
+            </Link>
           </Subbox>
           <ProduceBox>
             <p>자기소개</p>
@@ -178,12 +202,22 @@ function Profile() {
               <span>프로젝트 목록</span>
               <ul>
                 {users.hopePro.map((hope) => (
-                  <span>{hope}</span>
+                  <CircleBox>
+                    <CircleStyle></CircleStyle>
+                    <span>{hope}</span>
+                  </CircleBox>
                 ))}
               </ul>
             </HopePro>
           </TopDiv>
-          <div style={{ padding: "20px", color: "white", fontWeight: "600" }}>
+          <div
+            style={{
+              padding: "20px",
+              color: "white",
+              fontWeight: "600",
+              fontSize: "1.7rem",
+            }}
+          >
             Github Contribution
           </div>
         </EtcBox>

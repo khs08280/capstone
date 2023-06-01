@@ -4,6 +4,7 @@ import Chat from "./routes/Chat";
 import CreateProject from "./routes/CreateProject";
 import Profile from "./routes/Profile";
 import Project from "./routes/Project";
+import Login from "./routes/Login";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -33,6 +34,9 @@ function Router() {
         </Route>
         <Route path="/:projectId">
           <Project />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="/">
           <Home />

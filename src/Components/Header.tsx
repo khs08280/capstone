@@ -25,6 +25,10 @@ const NavRoute = styled.nav`
   width: auto;
 `;
 
+const user = {
+  logIn: false,
+};
+
 function Header() {
   return (
     <Nav>
@@ -39,9 +43,15 @@ function Header() {
           <span>프로젝트 생성</span>
         </Link>
         <span>알림</span>
-        <Link to={"/profile"}>
-          <span>프로필</span>
-        </Link>
+        {user.logIn === true ? (
+          <Link to={"/profile"}>
+            <span>프로필</span>
+          </Link>
+        ) : (
+          <Link to={"/login"}>
+            <span>로그인</span>
+          </Link>
+        )}
       </NavRoute>
     </Nav>
   );

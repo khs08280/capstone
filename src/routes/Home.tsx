@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import ProjectList from "../Components/ProjectList";
@@ -11,7 +10,7 @@ const Notice = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: whitesmoke;
+  background-color: #fff088;
   margin: 30px 300px 30px 300px;
   display: flex;
 
@@ -37,21 +36,21 @@ const Dot = styled.div`
   background-color: gray;
 `;
 
-const Filter = styled.div`
-  width: auto;
-  height: 350px;
-  background-color: #7d92e9;
-  margin: 30px 300px 30px 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  border-radius: 20px;
+// const Filter = styled.div`
+//   width: auto;
+//   height: 350px;
+//   background-color: #7d92e9;
+//   margin: 30px 300px 30px 300px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-evenly;
+//   align-items: center;
+//   border-radius: 20px;
 
-  font-size: 50px;
-  font-weight: 800;
-  color: ${(props) => props.theme.bgColor};
-`;
+//   font-size: 50px;
+//   font-weight: 800;
+//   color: ${(props) => props.theme.bgColor};
+// `;
 
 function Home() {
   return (
@@ -59,18 +58,11 @@ function Home() {
       <Header />
       <Notice>
         <p>공 지 사 항</p>
-        <p>
-          프로젝트 페이지(댓글기능, 소개 p로 따로받기 검색), 프로젝트 생성(기본
-          form),프로필
-        </p>
       </Notice>
       <DotBox>
         <Dot />
       </DotBox>
-      <Filter>
-        <p>정 렬 컴 포 넌 트</p>
-        <p>입 주 예 정</p>
-      </Filter>
+
       <ProjectList />
       <Footer></Footer>
     </>

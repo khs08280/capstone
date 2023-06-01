@@ -75,7 +75,12 @@ const Description = styled.div`
   input {
     padding: 10px 10px;
   }
+  input:focus {
+    outline: none;
+  }
   input::placeholder {
+    color: black;
+    opacity: 1;
   }
   input:first-child {
     margin-bottom: 20px;
