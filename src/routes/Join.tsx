@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Header from "../Components/Header";
+import axios from "../api/axios";
+import { useState } from "react";
 
 const Container = styled.div`
   width: 100vw;
@@ -10,16 +12,16 @@ const Container = styled.div`
 `;
 
 const Box = styled.div`
-  width: 600px;
-  height: 700px;
+  width: 37.5rem;
+  height: 43.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 100px 100px;
+  padding: 6.25rem 6.25rem;
 `;
 const Title = styled.h1`
-  font-size: 30px;
+  font-size: 1.875rem;
   font-weight: 600;
 `;
 
@@ -29,43 +31,89 @@ const FormBox = styled.form`
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 1.875rem;
 `;
 const InputId = styled.input`
   width: 100%;
-  height: 50px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
+  height: 3.125rem;
+  border: 0.063rem solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.313rem;
   outline: none;
   padding: 0px 5%;
-  margin-top: 8px;
+  margin-top: 0.5rem;
   &::placeholder {
-    font-size: 15px;
+    font-size: 0.938rem;
   }
 `;
 const Btn = styled.input`
   width: 100%;
-  height: 50px;
+  height: 3.125rem;
   background-color: black;
   color: white;
-  font-size: 17px;
+  font-size: 1.063rem;
   text-align: center;
-  margin-top: 30px;
-  border-radius: 5px;
+  margin-top: 1.875rem;
+  border-radius: 0.313rem;
   cursor: pointer;
 `;
 
-function Login() {
+function Join() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const btnPrevent = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("email", email);
+    axios({
+      method: "post",
+      url: "http://localhost:8080/api/v1/users/sign-up",
+      data: formData,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const usernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const emailChange = (event) => {
+    setEmail(event.target.value);
+  };
+  const passwordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
   return (
     <>
       <Header></Header>
       <Container>
         <Box>
           <Title>회원가입</Title>
-          <FormBox>
-            <InputId placeholder="아이디"></InputId>
-            <InputId placeholder="비밀번호"></InputId>
-            <InputId placeholder="비밀번호 확인"></InputId>
+          <FormBox onSubmit={btnPrevent}>
+            <InputId
+              onChange={usernameChange}
+              type="text"
+              placeholder="아이디"
+            ></InputId>
+            <InputId
+              onChange={emailChange}
+              type="email"
+              placeholder="이메일"
+            ></InputId>
+            <InputId
+              onChange={passwordChange}
+              type="password"
+              placeholder="비밀번호"
+            ></InputId>
             <Btn type="submit" value={"회원가입"}></Btn>
           </FormBox>
         </Box>
@@ -74,4 +122,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Join;

@@ -7,9 +7,9 @@ const Container = styled.footer`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 1000px;
+  height: 62.5rem;
   background-color: ${(props) => props.theme.bgColor};
-  padding: 100px 0px 0px 0px;
+  padding: 6.25rem 0px 0px 0px;
 `;
 
 const FooterBox = styled.div`
@@ -18,31 +18,31 @@ const FooterBox = styled.div`
   height: 70%;
   justify-content: start;
   align-items: start;
-  font-size: 15px;
+  font-size: 0.938rem;
   opacity: 0.6;
   font-weight: 600;
-  padding: 200px;
+  padding: 12.5rem;
   h2 {
-    font-size: 25px;
+    font-size: 1.563rem;
     font-weight: 600;
-    margin-bottom: 50px;
+    margin-bottom: 3.125rem;
   }
   li,
   span {
-    font-size: 20px;
-    margin-bottom: 30px;
+    font-size: 1.25rem;
+    margin-bottom: 1.875rem;
   }
 `;
 
 const FooterDetail = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 300px;
+  margin-right: 18.75rem;
 `;
 const FooterNav = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 300px;
+  margin-right: 18.75rem;
   height: auto;
 `;
 const FooterEtc = styled.div``;
@@ -52,10 +52,10 @@ const SiteDetail = styled.div`
   background-color: ${(props) => props.theme.bgColor};
   width: 100%;
   height: 30%;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 40px 200px 200px 200px;
+  border-top: 0.063rem solid rgba(0, 0, 0, 0.2);
+  padding: 2.5rem 12.5rem 12.5rem 12.5rem;
   span {
-    font-size: 20px;
+    font-size: 1.25rem;
     opacity: 0.7;
     font-weight: 600;
   }

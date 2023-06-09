@@ -128,9 +128,9 @@ const ProjectBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  row-gap: 80px;
-  column-gap: 30px;
-  margin: 100px 10%;
+  row-gap: 5rem;
+  column-gap: 1.875rem;
+  margin: 6.25rem 10%;
 `;
 
 const Project = styled.div`
@@ -139,10 +139,10 @@ const Project = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 300px;
+  height: 18.75rem;
   background-color: whitesmoke;
-  border-radius: 50px;
-  padding: 30px;
+  border-radius: 3.125rem;
+  padding: 1.875rem;
   padding-bottom: 0px;
   color: rgba(0, 0, 0, 0.5);
 `;
@@ -165,18 +165,18 @@ const TagBox = styled.div`
 
 const Tag = styled.div`
   display: flex;
-  margin-top: 15px;
+  margin-top: 0.938rem;
 `;
 
 const Range = styled.div`
   width: auto;
   height: auto;
   background-color: #7d92e9;
-  padding: 7px 8px;
-  font-size: 12px;
+  padding: 0.438rem 0.5rem;
+  font-size: 0.75rem;
   color: white;
-  margin-right: 15px;
-  border-radius: 20px;
+  margin-right: 0.938rem;
+  border-radius: 1.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -187,7 +187,7 @@ const Stack = styled.div`
   width: auto;
   align-items: center;
   span {
-    margin-right: 10px;
+    margin-right: 0.625rem;
   }
 `;
 
@@ -196,12 +196,12 @@ const Title = styled.div`
   align-items: center;
   justify-content: center;
   width: auto;
-  height: 120px;
-  border-radius: 25px;
+  height: 7.5rem;
+  border-radius: 1.563rem;
   color: black;
-  padding: 10px;
+  padding: 0.625rem;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 1.563rem;
   text-align: center;
 `;
 
@@ -210,8 +210,8 @@ const User = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 50px;
-  border-top: 1px solid;
+  height: 3.125rem;
+  border-top: 0.063rem solid;
 `;
 
 const UserDetail = styled.div`
@@ -219,13 +219,13 @@ const UserDetail = styled.div`
   justify-content: center;
   align-items: center;
   svg {
-    min-width: 25px;
-    height: 25px;
-    margin-right: 10px;
+    min-width: 1.563rem;
+    height: 1.563rem;
+    margin-right: 0.625rem;
   }
 
   span {
-    font-size: 15px;
+    font-size: 0.938rem;
   }
 `;
 
@@ -234,7 +234,7 @@ const ProjectDetail = styled.div`
   justify-content: space-between;
 
   span {
-    margin-right: 10px;
+    margin-right: 0.625rem;
   }
 `;
 

@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 import Header from "../Components/Header";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { error } from "console";
 
 const users = {
   id: 1,
@@ -189,6 +191,14 @@ const CircleBox = styled.div`
 `;
 
 function Profile() {
+  axios
+    .get("/api/v1/users/${username}")
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   return (
     <>
       <Header />

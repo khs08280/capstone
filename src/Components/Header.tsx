@@ -7,26 +7,26 @@ const Nav = styled.div`
   justify-content: space-between;
 
   width: 100%;
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
 
-  padding: 30px 5%;
-  font-size: 20px;
+  padding: 1.875rem 5%;
+  font-size: 1.25rem;
   font-weight: 600;
   color: ${(props) => props.theme.textColor};
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
   span {
-    margin-right: 350px;
+    margin-right: 21.875rem;
   }
 `;
 
 const SearchForm = styled.form`
   display: flex;
   width: 30%;
-  height: 40px;
+  height: 2.5rem;
   padding: 0px 2%;
-  border: 2px solid rgba(0, 0, 0, 0.3);
+  border: 0.125rem solid rgba(0, 0, 0, 0.3);
   outline: none;
-  border-radius: 50px;
+  border-radius: 3.125rem;
   align-items: center;
 `;
 const SearchInput = styled.input`
@@ -35,7 +35,7 @@ const SearchInput = styled.input`
   outline: none;
   border: none;
   &::placeholder {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: black;
     opacity: 0.5;
     font-weight: 600;
@@ -45,7 +45,7 @@ const SearchBtn = styled.button`
   border: none;
   outline: none;
   background-color: white;
-  font-size: 16px;
+  font-size: 1rem;
   opacity: 0.5;
   cursor: pointer;
 `;
@@ -57,12 +57,12 @@ const NavRoute = styled.nav`
   width: 25%;
   opacity: 0.6;
   span {
-    margin-right: 25px;
+    margin-right: 1.563rem;
   }
 `;
 
 const user = {
-  logIn: true,
+  logIn: false,
 };
 
 function Header() {
