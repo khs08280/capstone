@@ -109,7 +109,7 @@ const NoticeString = styled.span`
 `;
 
 const Toggle = styled.label`
-  margin: 3.125rem 5% 0px 79%;
+  margin: 3.125rem 5% 0px 77%;
   display: flex;
   align-items: center;
   justify-content: end;
