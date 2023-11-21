@@ -532,7 +532,7 @@ function Project() {
                 )}
                 <span>{project?.username}</span>
               </User>
-              {project?.userId === user.data.id ? (
+              {project?.userId === user?.data?.id ? (
                 <BtnDiv>
                   <button
                     onClick={completeBtn}

@@ -7,6 +7,8 @@ import { ChatRoomProvider } from "../contexts/chatRoomContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
+const Container = styled.div``;
+
 const StyledArea = styled.section`
   width: 100%;
   max-width: 1000px;
@@ -35,9 +37,11 @@ const ToHome = styled.span`
   margin-top: 200px;
   font-size: 35px;
   position: absolute;
-  top: -90px;
-  left: 40px;
+  top: -40px;
+  left: 300px;
   cursor: pointer;
+  border: none;
+  background-color: inherit;
 `;
 
 const ChatArea = () => {
@@ -48,17 +52,17 @@ const ChatArea = () => {
   };
 
   return (
-    <>
-      <ToHome onClick={goBack}>
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </ToHome>
+    <Container>
       <StyledArea>
         <ChatRoomProvider>
+          <ToHome onClick={goBack}>
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </ToHome>
           <ChatRoom />
           <ChatList />
         </ChatRoomProvider>
       </StyledArea>
-    </>
+    </Container>
   );
 };
 

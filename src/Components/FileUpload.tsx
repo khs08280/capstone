@@ -9,7 +9,7 @@ const Container = styled.div`
 const UploadBox = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 `;
 
 const UploadInput = styled.input`
@@ -21,14 +21,14 @@ const CustomButton = styled.label`
   font-size: 1.125rem;
   font-weight: 600;
   color: #287657;
-  border: 2px solid #a0f1d0;
+  border: 0.125rem solid #a0f1d0;
   border-radius: 0.625rem;
   cursor: pointer;
-  margin-right: 20px;
+  margin-right: 1.25rem;
 `;
 
 const FileName = styled.span`
-  margin-right: 10px;
+  margin-right: 0.625rem;
 `;
 
 const FileUpload = () => {

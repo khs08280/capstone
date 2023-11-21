@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 const MyInfo = styled.div`
   width: 31.25rem;
   height: 18.75rem;
-  margin-right: 100px;
+  margin-right: 6.25rem;
 
   h1 {
     font-size: 1.688rem;
@@ -36,7 +36,7 @@ const InfoBox = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  border: 1px solid #dadce0;
+  border: 0.063rem solid #dadce0;
 `;
 
 const Info = styled.div`
@@ -45,7 +45,7 @@ const Info = styled.div`
   justify-content: start;
   padding: 3%;
   border-radius: 0.625rem;
-  border-bottom: 1px solid #a0f1d0;
+  border-bottom: 0.063rem solid #a0f1d0;
 `;
 
 const UserCircle = styled.div`
@@ -72,7 +72,7 @@ const UserImage = styled.img`
 const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 8.125rem;
+  margin-right: 5.125rem;
   span:first-child {
     margin-bottom: 0.625rem;
     color: rgba(0, 0, 0, 1);
@@ -130,7 +130,7 @@ const ProejctBox = styled.div`
 
 const DeleteUser = styled.div`
   display: flex;
-  width: 120px;
+  width: 7.5rem;
   justify-content: end;
   align-items: center;
   font-size: 0.938rem;
@@ -149,7 +149,7 @@ const BookmarkBox = styled.div`
   padding-bottom: 1.25rem;
   font-size: 1.563rem;
   font-weight: 600;
-  border: 1px solid #dadce0;
+  border: 0.063rem solid #dadce0;
 `;
 
 const Bookmark = styled.span`

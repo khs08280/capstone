@@ -98,7 +98,7 @@ const NotificationBox = styled.div`
   z-index: 999;
   width: 17.125rem;
   padding: 1.25rem;
-  span {
+  a {
     color: rgba(0, 0, 0, 1);
 
     text-decoration: none;
@@ -239,15 +239,16 @@ function Header() {
               <NotificationBox ref={menuRef}>
                 <NotifiString>알림</NotifiString>
                 {notifications.map((notification) => (
-                  <span
+                  <a
                     key={notification.id}
+                    href={notification.url}
                     onClick={() => handleNotifi(notification.id)}
                     style={{
                       display: notification.read ? "none" : "",
                     }}
                   >
                     {notification.content}
-                  </span>
+                  </a>
                 ))}
               </NotificationBox>
             )}

@@ -81,7 +81,7 @@ function CustomSelect({ options, selectedOption, onChange }) {
   return (
     <CustomSelectWrapper>
       <CustomSelectHeader onClick={toggleDropdown}>
-        {selectedOption || "인원 미정 ~ 5명"}
+        {selectedOption || "미정"}
         <span>▼</span>
       </CustomSelectHeader>
       <CustomSelectList isOpen={isOpen}>

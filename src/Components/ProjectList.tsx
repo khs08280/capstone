@@ -92,7 +92,7 @@ const Bookmk = styled.button<BookmkProps>`
   border-radius: 0.938rem;
   background-color: #9ac5f4;
   svg {
-    color: ${({ bookmarked }) => (bookmarked ? "yellow" : "brown")};
+    color: ${({ bookmarked }) => (bookmarked ? "yellow" : "white")};
   }
   cursor: pointer;
   z-index: 99;
