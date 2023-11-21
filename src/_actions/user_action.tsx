@@ -18,7 +18,7 @@ export const loginUser = (formData) => {
       );
       const data = res.data;
 
-      if (data && data.accessToken && data.refreshToken) {
+      if (data) {
         const { accessToken, refreshToken } = data;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
