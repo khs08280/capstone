@@ -9,6 +9,86 @@ import { getChatList } from "../modules/getChatList";
 import { getChatRoom } from "../modules/getChatRoom";
 import Bubble from "./Bubble";
 
+const StyledChatRoom = styled.div`
+  height: 100%;
+  position: relative;
+  flex: 2 1 300px;
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+  border-radius: 20px;
+
+  .button-exit {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 5px 10px;
+    border: 3px solid dodgerblue;
+    color: dodgerblue;
+    border-radius: 10px;
+    box-shadow: 0 0 15px white;
+    background-color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+
+    &:disabled,
+    &:disabled:hover {
+      border: 3px solid #eee;
+      background-color: #eee;
+      color: #888;
+      font-weight: normal;
+      cursor: not-allowed;
+    }
+
+    &:hover {
+      background-color: dodgerblue;
+      color: white;
+    }
+  }
+
+  .cont-content {
+    padding: 10px 5px 0;
+    flex: 1 1 0;
+    overflow-y: auto;
+
+    .chat-list {
+      width: 100%;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      li {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  form {
+    width: 100%;
+    margin: 10px 0 0;
+    padding: 0;
+  }
+  .input {
+    bottom: 0px;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    border-radius: 20px;
+    border: 0;
+    background-color: #eee;
+    font-size: inherit;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+`;
+
 const ChatRoom = () => {
   const { chatRoom, setChatRoom } = useContext(ChatRoomContext);
   const { user } = useContext(UserContext);
@@ -142,85 +222,5 @@ const ChatRoom = () => {
     </StyledChatRoom>
   );
 };
-
-const StyledChatRoom = styled.div`
-  height: 100%;
-  position: relative;
-  flex: 2 1 300px;
-  display: flex;
-  flex-direction: column;
-
-  overflow: hidden;
-  border-radius: 20px;
-
-  .button-exit {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    padding: 5px 10px;
-    border: 3px solid dodgerblue;
-    color: dodgerblue;
-    border-radius: 10px;
-    box-shadow: 0 0 15px white;
-    background-color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease-in;
-
-    &:disabled,
-    &:disabled:hover {
-      border: 3px solid #eee;
-      background-color: #eee;
-      color: #888;
-      font-weight: normal;
-      cursor: not-allowed;
-    }
-
-    &:hover {
-      background-color: dodgerblue;
-      color: white;
-    }
-  }
-
-  .cont-content {
-    padding: 10px 5px 0;
-    flex: 1 1 0;
-    overflow-y: auto;
-
-    .chat-list {
-      width: 100%;
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-
-      li {
-        margin-bottom: 20px;
-      }
-    }
-  }
-
-  form {
-    width: 100%;
-    margin: 10px 0 0;
-    padding: 0;
-  }
-  .input {
-    bottom: 0px;
-    width: 100%;
-    margin: 0;
-    padding: 15px;
-    border-radius: 20px;
-    border: 0;
-    background-color: #eee;
-    font-size: inherit;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      background-color: #ddd;
-    }
-  }
-`;
 
 export default ChatRoom;

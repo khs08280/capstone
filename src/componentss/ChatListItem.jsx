@@ -4,27 +4,6 @@ import { ChatRoomContext } from "../contexts/chatRoomContext";
 import { UserContext } from "../contexts/userContext";
 import { getChatRoom } from "../modules/getChatRoom";
 
-const ChatListItem = ({ id, roomName }) => {
-  const { user } = useContext(UserContext);
-  const { chatRoom, setChatRoom } = useContext(ChatRoomContext);
-
-  const onClick = () => {
-    console.log(id);
-    console.log(chatRoom.id);
-    if (id !== chatRoom.id) {
-      getChatRoom(roomName, user, id, (result) => {
-        setChatRoom(result);
-      });
-    }
-  };
-
-  return (
-    <StyledItem onClick={onClick}>
-      <span className="roomname">{roomName}</span>
-    </StyledItem>
-  );
-};
-
 const StyledItem = styled.li`
   padding: 20px;
   width: 100%;
@@ -51,5 +30,26 @@ const StyledItem = styled.li`
     font-size: 1rem;
   }
 `;
+
+const ChatListItem = ({ id, roomName }) => {
+  const { user } = useContext(UserContext);
+  const { chatRoom, setChatRoom } = useContext(ChatRoomContext);
+
+  const onClick = () => {
+    console.log(id);
+    console.log(chatRoom.id);
+    if (id !== chatRoom.id) {
+      getChatRoom(roomName, user, id, (result) => {
+        setChatRoom(result);
+      });
+    }
+  };
+
+  return (
+    <StyledItem onClick={onClick}>
+      <span className="roomname">{roomName}</span>
+    </StyledItem>
+  );
+};
 
 export default ChatListItem;

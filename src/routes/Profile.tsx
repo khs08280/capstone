@@ -143,7 +143,6 @@ const DeleteUser = styled.div`
 const BookmarkBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   background-color: white;
   padding: 1.25rem;
@@ -154,7 +153,7 @@ const BookmarkBox = styled.div`
 `;
 
 const Bookmark = styled.span`
-  margin-bottom: 0.625rem;
+  margin: 0.625rem;
 `;
 
 function Profile() {
@@ -260,9 +259,9 @@ function Profile() {
                   <span>북마크한 프로젝트가 없어요</span>
                 ) : (
                   bookmarks.map((bookmark) => (
-                    <Link to={`/${bookmark.postsId}`}>
-                      <Bookmark>{bookmark.title}</Bookmark>
-                    </Link>
+                    <Bookmark>
+                      <Link to={`/${bookmark.postsId}`}>{bookmark.title}</Link>
+                    </Bookmark>
                   ))
                 )}
               </BookmarkBox>

@@ -225,6 +225,13 @@ const RecentProject = styled.div`
   border: 2px solid #dadce0;
   border-radius: 0.625rem;
 `;
+const UserImage = styled.img`
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.625rem;
+  border-radius: 50%;
+  object-fit: cover;
+`;
 
 function Project() {
   interface Project {
@@ -284,7 +291,7 @@ function Project() {
   const projects = useSelector(
     (state: RootState) => state.userReducer.projects
   );
-  console.log(projects);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -293,6 +300,7 @@ function Project() {
         );
         const projectData = postRes.data.data;
         setProject(projectData);
+        console.log(projectData);
 
         const commentRes = await axios.get(
           `${backendServer}/api/v1/posts/${postId}/comments`
@@ -517,7 +525,11 @@ function Project() {
             <Title>{project?.title}</Title>
             <WriterBox>
               <User>
-                <Writer>{project?.username[0]}</Writer>
+                {user?.data.image ? (
+                  <UserImage src={user?.data.image} />
+                ) : (
+                  <Writer>{project?.username[0]}</Writer>
+                )}
                 <span>{project?.username}</span>
               </User>
               {project?.userId === user.data.id ? (

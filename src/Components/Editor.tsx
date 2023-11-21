@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import styled from "styled-components";
-import { EditorState } from "draft-js";
+import { EditorState, ContentState, convertFromHTML } from "draft-js";
 
 const MyBlock = styled.div`
   .wrapper-class {
@@ -21,7 +21,11 @@ const MyBlock = styled.div`
   }
 `;
 
-function MyEditor({ onContentChange }) {
+interface MyEditorProps {
+  content?: any;
+  onContentChange: (content: any) => void;
+}
+function MyEditor({ content, onContentChange }: MyEditorProps) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const onEditorStateChange = (editorState) => {
@@ -34,6 +38,7 @@ function MyEditor({ onContentChange }) {
   return (
     <MyBlock>
       <Editor
+        defaultEditorState={content}
         wrapperClassName="wrapper-class"
         editorClassName="editor"
         toolbarClassName="toolbar-class"

@@ -44,6 +44,18 @@ const CustomSelectList = styled.ul<CustomSelectListProps>`
   background-color: #fff;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
   display: ${(props) => (props.isOpen ? "block" : "none")};
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #7d92e9;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track:hover {
+    background-color: #f0f0f0;
+  }
 `;
 
 const CustomSelectItem = styled.li`

@@ -5,9 +5,22 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import React from "react";
+import SideNav from "../Components/SideNav";
+import MyEditor from "../Components/Editor";
+import MultiSelect from "../Components/MultiSelect";
+import CustomSelect from "../Components/Select";
+const Container = styled.div`
+  display: flex;
+  background-color: #f8f9fa;
+`;
 
 const Wrapper = styled.div`
-  padding: 3.125rem 12.5rem 9.375rem 18.75rem;
+  width: 70%;
+  margin: 3.125rem 5% 6.25rem 3%;
+  padding: 3%;
+  background-color: white;
+  border: 0.125rem solid #dadce0;
+  border-radius: 0.625rem;
 `;
 
 const Title = styled.div`
@@ -51,32 +64,54 @@ const InfoSelect = styled.div`
     margin-bottom: 1.25rem;
   }
   select {
-    width: 50%;
+    width: 80%;
+    border-radius: 0.313rem;
+    opacity: 0.8;
+    font-weight: 600;
     padding: 0.625rem 0.938rem;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    border: 0.063rem solid #999;
+    border: 0.125rem solid #7d92e9;
   }
 
   input {
-    width: 50%;
+    border-radius: 0.313rem;
+    width: 80%;
     padding: 0.625rem 0.938rem;
-    border: 0.063rem solid #999;
+    border: 0.125rem solid #7d92e9;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
   }
+  input[type="date"] {
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 600;
+    height: 2.5rem;
+  }
+  input[type="date"]::before {
+    content: attr(data-placeholder);
+    font-family: "Noto Sans KR", sans-serif;
+    width: 100%;
+    font-weight: 600;
+  }
+  input[type="date"]:focus::before,
+  input[type="date"]:valid::before {
+    display: none;
+  }
 `;
-
 const Description = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 6.25rem;
-  margin-bottom: 6.25rem;
+  margin-bottom: 1.875rem;
   input {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 0.313rem;
     padding: 0.625rem 0.625rem;
+    border: 0.125rem solid #7d92e9;
   }
   input:focus {
     outline: none;
@@ -86,11 +121,7 @@ const Description = styled.div`
     opacity: 0.8;
   }
   input:first-child {
-    margin-bottom: 1.25rem;
     height: 2.5rem;
-  }
-  input:last-child {
-    height: 18.75rem;
   }
 `;
 
@@ -156,10 +187,55 @@ function EditProject() {
   const [recruitmentSize, setRecruitmentSize] = useState(0);
   const [position, setPosition] = useState<string[]>([]);
   const [techStack, setTechStack] = useState<string[]>([]);
+  const [connect, setConnect] = useState("");
+
   const history = useHistory();
+  const [editorContent, setEditorContent] = useState("");
   const accessToken = localStorage.getItem("accessToken");
   const [project, setProject] = useState<Project | null>(null);
   const postId = useParams().projectId;
+  const people = [0, 1, 2, 3, 4, 5];
+  const duration = [0, 1, 2, 3, 4];
+  const connection = ["1대1 채팅", "카카오톡 오픈채팅"];
+  const positionArray = [
+    "FRONTEND",
+    "BACKEND",
+    "DATABASE",
+    "DEVOPS",
+    "ANDROID",
+    "IOS",
+    "DESIGNER",
+    "AI",
+  ];
+  const stack = [
+    "JAVA",
+    "JavaScript",
+    "React",
+    "VUE",
+    "Python",
+    "Angular",
+    "NodeJS",
+    "SpringBoot",
+    "Django",
+    "RubyOnRails",
+    "PHP",
+    "Laravel",
+    "ASPNET",
+    "ExpressJS",
+    "MySQL",
+    "MongoDB",
+    "PostgreSQL",
+    "Docker",
+    "Kubernetes",
+    "Jenkins",
+    "Swift",
+    "AWS",
+    "Kotlin",
+    "Git",
+    "CSharp",
+    "Unity",
+    "TensorFlow",
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -170,16 +246,17 @@ function EditProject() {
           },
         });
         const projectData = res.data.data;
-        setProject(projectData);
         console.log(projectData);
 
-        if (projectData) setTitle(projectData?.title);
-        if (projectData) setContent(projectData?.content);
-        if (projectData) setExpectedDuration(projectData?.expectedDuration);
-        if (projectData) setRecruitmentPeriod(projectData?.recruitmentPeriod);
-        if (projectData) setRecruitmentSize(projectData?.recruitmentSize);
-        if (projectData) setPosition(projectData?.position);
-        if (projectData) setTechStack(projectData?.techStack);
+        if (projectData) {
+          setTitle(projectData.title);
+          setEditorContent(projectData.content);
+          setExpectedDuration(projectData.expectedDuration);
+          setRecruitmentPeriod(projectData.recruitmentPeriod);
+          setRecruitmentSize(projectData.recruitmentSize);
+          setPosition(projectData.position);
+          setTechStack(projectData.techStack);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -197,28 +274,31 @@ function EditProject() {
   const titleChange = (event) => {
     setTitle(event.target.value);
   };
-  const contentChange = (event) => {
-    setContent(event.target.value);
+  const editorChange = (content) => {
+    setEditorContent(content);
   };
-  const expectedDurationChange = (event) => {
-    setExpectedDuration(Number(event.target.value));
+  const expectedDurationChange = (option) => {
+    setExpectedDuration(option);
   };
   const recruitmentPeriodChange = (event) => {
     setRecruitmentPeriod(event.target.value);
   };
-  const recruitmentSizeChange = (event) => {
-    setRecruitmentSize(Number(event.target.value));
+  const recruitmentSizeChange = (option) => {
+    setRecruitmentSize(option);
   };
-  const positionChange = (event) => {
-    setPosition([...position, event.target.value]);
+  const positionChange = (options) => {
+    setPosition(options);
   };
-  const techStackChange = (event) => {
-    setTechStack([...techStack, event.target.value]);
+  const techStackChange = (options) => {
+    setTechStack(options);
   };
 
+  const connectionChange = (option) => {
+    setConnect(option);
+  };
   const body = {
     title,
-    content,
+    content: editorContent,
     expectedDuration,
     recruitmentPeriod,
     recruitmentSize,
@@ -244,132 +324,92 @@ function EditProject() {
   return (
     <>
       <Header />
-      <Wrapper>
-        <Title>
-          <div>1</div>
-          <h1>프로젝트 기본정보 수정</h1>
-        </Title>
-        <Info>
-          <InfoSelect>
-            <h1>모집 인원</h1>
-            <select value={recruitmentSize} onChange={recruitmentSizeChange}>
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </InfoSelect>
-          <InfoSelect>
-            <h1>모집 마감일</h1>
+      <Container>
+        <SideNav />
+        <Wrapper>
+          <Title>
+            <div>1</div>
+            <h1>프로젝트 기본정보 수정</h1>
+          </Title>
+          <Info>
+            <InfoSelect>
+              <h1>모집 인원</h1>
+              <CustomSelect
+                options={people}
+                selectedOption={recruitmentSize}
+                onChange={recruitmentSizeChange}
+              />
+            </InfoSelect>
+            <InfoSelect>
+              <h1>모집 마감일</h1>
+              <input
+                value={recruitmentPeriod}
+                onChange={recruitmentPeriodChange}
+                type="date"
+                placeholder="날짜 선택"
+              ></input>
+            </InfoSelect>
+            <InfoSelect>
+              <h1>모집 분야</h1>
+              <MultiSelect
+                options={positionArray}
+                initialSelectedOptions={position}
+                onSelectionChange={positionChange}
+              />
+            </InfoSelect>
+            <InfoSelect>
+              <h1>예상기간</h1>
+              <CustomSelect
+                options={duration}
+                selectedOption={expectedDuration}
+                onChange={expectedDurationChange}
+              />
+            </InfoSelect>
+            <InfoSelect>
+              <h1>사용 스택</h1>
+              <MultiSelect
+                options={stack}
+                initialSelectedOptions={techStack}
+                onSelectionChange={techStackChange}
+              />
+            </InfoSelect>
+            <InfoSelect>
+              <h1>연락 방법</h1>
+              <CustomSelect
+                options={connection}
+                selectedOption={connect}
+                onChange={connectionChange}
+              />
+            </InfoSelect>
+          </Info>
+          <Title>
+            <div>2</div>
+            <h1>프로젝트 소개 수정</h1>
+          </Title>
+          <Description>
             <input
-              value={recruitmentPeriod}
-              onChange={recruitmentPeriodChange}
-              type="date"
-              placeholder="날짜 선택"
-            ></input>
-          </InfoSelect>
-          <InfoSelect>
-            <h1>모집 분야</h1>
-            <select multiple={true} value={position} onChange={positionChange}>
-              <option>FRONTEND</option>
-              <option>BACKEND</option>
-              <option>DATABASE</option>
-              <option>DEVOPS</option>
-              <option>ANDROID</option>
-              <option>DEVOPS</option>
-              <option>IOS</option>
-              <option>DESIGNER</option>
-              <option>AI</option>
-            </select>
-          </InfoSelect>
-          <InfoSelect>
-            <h1>예상기간</h1>
-            <select value={expectedDuration} onChange={expectedDurationChange}>
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-          </InfoSelect>
-          <InfoSelect>
-            <h1>사용 스택</h1>
-            <select
-              multiple={true}
-              value={techStack}
-              onChange={techStackChange}
+              value={title}
+              onChange={titleChange}
+              type="text"
+              placeholder="제목을 입력해주세요"
+            />
+            <MyEditor content={editorContent} onContentChange={editorChange} />
+          </Description>
+          <BtnDiv>
+            <Link to={"/"}>
+              <button>취소</button>
+            </Link>
+            <button
+              onClick={editProjectBtn}
+              className="submit"
+              style={{ cursor: "pointer" }}
+              type="submit"
             >
-              <option>JAVA</option>
-              <option>JavaScript</option>
-              <option>React</option>
-              <option>VUE</option>
-              <option>Python</option>
-              <option>Angular</option>
-              <option>NodeJS</option>
-              <option>SpringBoot</option>
-              <option>Django</option>
-              <option>RubyOnRails</option>
-              <option>PHP</option>
-              <option>Laravel</option>
-              <option>ASPNET</option>
-              <option>ExpressJS</option>
-              <option>MySQL</option>
-              <option>MongoDB</option>
-              <option>PostgreSQL</option>
-              <option>Docker</option>
-              <option>Kubernetes</option>
-              <option>Jenkins</option>
-              <option>Swift</option>
-              <option>AWS</option>
-              <option>Kotlin</option>
-              <option>Git</option>
-              <option>CSharp</option>
-              <option>Unity</option>
-              <option>TensorFlow</option>
-            </select>
-          </InfoSelect>
-          <InfoSelect>
-            <h1>연락 방법</h1>
-            <select>
-              <option>1대1 채팅</option>
-              <option>카카오톡 오픈채팅</option>
-            </select>
-          </InfoSelect>
-        </Info>
-        <Title>
-          <div>2</div>
-          <h1>프로젝트 소개 수정</h1>
-        </Title>
-        <Description>
-          <input
-            value={title}
-            onChange={titleChange}
-            type="text"
-            placeholder="제목을 입력해주세요"
-          />
-          <input
-            value={content}
-            onChange={contentChange}
-            type="text"
-            placeholder="프로젝트를 소개해주세요"
-          />
-        </Description>
-        <BtnDiv>
-          <Link to={"/"}>
-            <button>취소</button>
-          </Link>
-          <button
-            onClick={editProjectBtn}
-            className="submit"
-            style={{ cursor: "pointer" }}
-            type="submit"
-          >
-            수정
-          </button>
-        </BtnDiv>
-      </Wrapper>
+              수정
+            </button>
+          </BtnDiv>
+        </Wrapper>
+      </Container>
     </>
   );
 }

@@ -13,7 +13,7 @@ export const loginUser = (formData) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        `http://3.39.63.104:8080/api/v1/users/login`,
+        `https://jihyuncap.store/api/v1/users/login`,
         formData
       );
       const data = res.data.data;

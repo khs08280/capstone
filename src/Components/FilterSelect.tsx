@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const CustomSelectWrapper = styled.div`
   position: relative;
-  width: 80%;
 `;
 
 const CustomSelectHeader = styled.div`
@@ -20,13 +19,14 @@ const CustomSelectHeader = styled.div`
   appearance: none;
   border: 0.125rem solid #7d92e9;
   cursor: pointer;
+  margin-right: 20px;
 `;
 
 const CustomSelectList = styled.ul`
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: 200px;
   z-index: 9;
   max-height: 200px;
   overflow-y: auto;
@@ -34,7 +34,7 @@ const CustomSelectList = styled.ul`
   border-top: none;
   border-radius: 0 0 0.313rem 0.313rem;
   list-style: none;
-  padding: 0;
+  padding: 5px 0px;
   margin: 0;
   background-color: #fff;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
@@ -55,6 +55,7 @@ const CustomSelectList = styled.ul`
 
 const CustomSelectItem = styled.li`
   padding: 0.625rem;
+  padding-left: 15px;
   cursor: pointer;
   &:hover {
     background-color: #f0f0f0;
@@ -90,7 +91,7 @@ const OptionRemoveButton = styled.button`
   cursor: pointer;
 `;
 
-function MultiSelect({
+function FilterSelect({
   options,
   defaultMessage = "Default Message",
   onSelectionChange,
@@ -99,9 +100,8 @@ function MultiSelect({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [currentOption, setCurrentOption] = useState<string>("");
-
+  const selectRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    // 초기값이 변경될 때만 호출되도록 추가
     if (initialSelectedOptions.length > 0) {
       setSelectedOptions(initialSelectedOptions);
     }
@@ -138,9 +138,24 @@ function MultiSelect({
     setSelectedOptions([]);
     setIsOpen(false);
   };
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      selectRef.current &&
+      !selectRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <CustomSelectWrapper>
+    <CustomSelectWrapper ref={selectRef}>
       <CustomSelectHeader onClick={toggleDropdown}>
         {selectedOptions.length > 0 ? (
           <SelectedOptions>
@@ -174,4 +189,4 @@ function MultiSelect({
   );
 }
 
-export default MultiSelect;
+export default FilterSelect;

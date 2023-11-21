@@ -1,24 +1,5 @@
 import styled from "styled-components";
 
-const Bubble = ({ isMe, sender, message, createDate }) => {
-  const time = new Date(createDate);
-  const timeObj = {
-    period: time.getHours() < 12 ? "오전" : "오후",
-    hours: String(time.getHours()),
-    minutes: String(time.getMinutes()).padStart(2, "0"),
-  };
-
-  return (
-    <StyledBubble>
-      {!isMe && <p className="name">{sender}</p>}
-      <div className={`content ${isMe ? "right" : "left"}`}>
-        <p className={`message`}>{message}</p>
-        <p className="time">{`${timeObj.period} ${timeObj.hours}:${timeObj.minutes}`}</p>
-      </div>
-    </StyledBubble>
-  );
-};
-
 const StyledBubble = styled.li`
   .name {
     margin: 5px;
@@ -62,5 +43,24 @@ const StyledBubble = styled.li`
     }
   }
 `;
+
+const Bubble = ({ isMe, sender, message, createDate }) => {
+  const time = new Date(createDate);
+  const timeObj = {
+    period: time.getHours() < 12 ? "오전" : "오후",
+    hours: String(time.getHours()),
+    minutes: String(time.getMinutes()).padStart(2, "0"),
+  };
+
+  return (
+    <StyledBubble>
+      {!isMe && <p className="name">{sender}</p>}
+      <div className={`content ${isMe ? "right" : "left"}`}>
+        <p className={`message`}>{message}</p>
+        <p className="time">{`${timeObj.period} ${timeObj.hours}:${timeObj.minutes}`}</p>
+      </div>
+    </StyledBubble>
+  );
+};
 
 export default Bubble;

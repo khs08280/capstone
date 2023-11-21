@@ -196,7 +196,13 @@ const User = styled.div`
   height: 3.125rem;
   border-top: 0.063rem solid #c2dedc;
 `;
-
+const UserImage = styled.img`
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.625rem;
+  border-radius: 50%;
+  object-fit: cover;
+`;
 const UserDetail = styled.div`
   display: flex;
   justify-content: center;
@@ -257,13 +263,15 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
   const [counts, setCounts] = useState(0);
   const [searchContent, setSearchContent] = useState("");
   const [blockNum, setBlockNum] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [bookmarks, setBookmarks] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
   const [bookmarkStatus, setBookmarkStatus] = useState({});
 
   const [bookmkData, setBookmkData] = useState<BookmarkData[]>([]);
-  const menuRef = useRef<HTMLDivElement | null>(null);
   const isLogin = useSelector((state: RootState) => state.userReducer.isLogin);
+
+  const userDataString = localStorage.getItem("user");
+  const userData = userDataString ? JSON.parse(userDataString) : null;
+  const user = userData ? userData.data : null;
 
   const accessToken = localStorage.getItem("accessToken");
   const history = useHistory();
@@ -276,18 +284,12 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
   };
 
   useEffect(() => {
-    if (projectss.length >= 2 && projectss[0].id < projectss[1].id) {
-      setProjects([...projectss].reverse());
-    } else {
-      setProjects(projectss);
-      setCounts(projectss.length);
-    }
-    setLoading(false);
+    setProjects(projectss);
+    setCounts(projectss.length);
   }, [projectss]);
 
   useEffect(() => {
     const delay = 500;
-
     const timer = setTimeout(() => {
       if (onSearch) {
         axios({
@@ -311,34 +313,6 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
   const searchChange = (event) => {
     setSearchContent(event.target.value);
   };
-
-  // useEffect(() => {
-  //   const initialBookmarkStatus = {};
-  //   const updatedProjects = projectss.map((project) => {
-  //     const isBookmarked = bookmarks.some(
-  //       (bookmark) => bookmark.postsId === project.id
-  //     );
-  //     initialBookmarkStatus[project.id] = isBookmarked;
-  //     return { ...project, isBookmark: isBookmarked };
-  //   });
-
-  //   setProjects(updatedProjects);
-  //   setBookmarkStatus(initialBookmarkStatus);
-  //   setLoading(false);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (isLogin) {
-  //     axios
-  //       .get(`${backendServer}/bookmark`, config)
-  //       .then((res) => {
-  //         console.log(res.data.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error:", error);
-  //       });
-  //   }
-  // }, []);
 
   const toggleBookmark = (projectId, isBookmarked) => {
     if (isLogin) {
@@ -374,11 +348,11 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
 
             axios({
               method: "delete",
-              url: `${backendServer}/bookmark/${bookmarkId}`, // 중괄호 수정
+              url: `${backendServer}/bookmark/${bookmarkId}`,
               headers: config.headers,
             })
               .then((res) => {
-                console.log(res.data);
+                history.go(0);
               })
               .catch((error) => {
                 console.log(error);
@@ -391,7 +365,7 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
           if (project.id === projectId) {
             return {
               ...project,
-              isBookmark: !isBookmarked, // 업데이트된 상태 반전
+              isBookmark: !isBookmarked,
             };
           }
           return project;
@@ -405,29 +379,29 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
     window.location.href = projectDetailURL;
   };
 
+  const fetchDataAndSetBookmarks = async () => {
+    try {
+      const res = await axios.get(`${backendServer}/bookmark`, config);
+      setBookmkData(res.data.data);
+      const updatedProjects = projectss.map((project) => {
+        const isBookmarked = bookmkData.some(
+          (bookmark) => bookmark.postsId == project.id
+        );
+        return { ...project, isBookmark: isBookmarked };
+      });
+      setProjects(updatedProjects);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (isLogin) {
       const initialBookmarkStatus = {};
       projectss.forEach((project) => {
         initialBookmarkStatus[project.id] = false;
       });
-
-      axios
-        .get(`${backendServer}/bookmark`, config)
-        .then((res) => {
-          setBookmkData(res.data.data);
-          const updatedProjects = projectss.map((project) => {
-            const isBookmarked = bookmkData.some(
-              (bookmark) => bookmark.postsId == project.id
-            );
-            return { ...project, isBookmark: isBookmarked };
-          });
-
-          setProjects(updatedProjects);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      fetchDataAndSetBookmarks();
     }
   }, [isLogin, projectss]);
 
@@ -459,7 +433,7 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
         <div>Loading...</div>
       ) : (
         <ProjectBox>
-          {projects.map((project) => (
+          {projects.reverse().map((project) => (
             <Project key={project.id}>
               <Detail>
                 <TagBox>
@@ -490,7 +464,11 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
               </Title>
               <User>
                 <UserDetail>
-                  <Writer>{project.username[0]}</Writer>
+                  {user?.image && user.id === project.userId ? (
+                    <UserImage src={user?.image} />
+                  ) : (
+                    <Writer>{project?.username[0]}</Writer>
+                  )}
                   <span>{project.username}</span>
                 </UserDetail>
                 <ProjectDetail>

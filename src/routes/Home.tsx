@@ -11,8 +11,10 @@ import { LoadingContext } from "../Components/LoadingContext";
 import LoadingComponent from "../Components/Loading";
 import axios from "axios";
 import SideNav from "../Components/SideNav";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setProjectss } from "../_actions/user_action";
+import { RootState } from "../_reducers";
+import Filter from "../Components/Fitler";
 
 interface parts {
   name: string;
@@ -174,73 +176,6 @@ const Toggle = styled.label`
     font-weight: 800;
   }
 `;
-// const Filter = styled.div`
-//   width: auto;
-//   height: 21.875rem;
-//   background-color: #7d92e9;
-//   margin: 1.875rem 18.75rem 1.875rem 18.75rem;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: start;
-//   border-radius: 1.25rem;
-//   padding: 1.25rem 1.25rem;
-//   font-weight: 600;
-//   color: ${(props) => props.theme.bgColor};
-// `;
-
-// const Part = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   span {
-//     font-size: 1.438rem;
-//     padding: 0px 0.625rem;
-//     border-right: 0.125rem solid white;
-//     margin-right: 0.625rem;
-//     cursor: pointer;
-
-//     &:last-child {
-//       border: none;
-//     }
-//     &:hover {
-//       text-decoration: underline;
-//     }
-//   }
-// `;
-
-// const Stack = styled.div`
-//   display: flex;
-//   font-size: 1.563rem;
-//   margin-top: 3.125rem;
-//   li {
-//     list-style: none;
-//     margin-right: 1.25rem;
-//     cursor: pointer;
-//     &:hover {
-//       text-decoration: underline;
-//     }
-//   }
-// `;
-
-// const Select = styled.div`
-//   display: flex;
-//   font-size: 0.938rem;
-//   margin-top: 6.25rem;
-//   li {
-//     display: flex;
-//     align-items: center;
-//     list-style: none;
-//     margin-right: 1.25rem;
-//     background-color: whitesmoke;
-//     padding: 0.313rem 0.625rem;
-//     color: black;
-//     border-radius: 1.875rem;
-//     cursor: pointer;
-//     svg {
-//       margin-left: 0.313rem;
-//     }
-//   }
-// `;
 
 function Home() {
   const [part, setPart] = useState("프론트엔드");
@@ -262,31 +197,6 @@ function Home() {
 
     scrollToTop();
   };
-  // const partClick = (event) => {
-  //   setPart(event.target.innerText);
-  // };
-  // const selectClick = (event) => {
-  //   setSelect((select) => [...select, event.target.innerText]);
-  // };
-  // const deleteClick = (event) => {
-  //   const index = select.indexOf(event.target.innerText);
-  //   select.splice(index, 1);
-  //   console.log(select);
-  // };
-  // useEffect(() => {
-  //   const eventSource = new EventSource(
-  //     "${backendServer}/api/v1/notifications/subscribe"
-  //   );
-
-  //   eventSource.onmessage = (event) => {
-  //     const data = JSON.parse(event.data);
-  //     setMessage(data.message);
-  //   };
-
-  //   return () => {
-  //     eventSource.close();
-  //   };
-  // });
 
   useEffect(() => {
     switch (part) {
@@ -323,93 +233,71 @@ function Home() {
   const backendServer = process.env.REACT_APP_BASE_URL;
 
   const [projects, setProjects] = useState<Project[]>([]);
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
   const [size, setSize] = useState(15);
   const [startPage, setStartPage] = useState(1);
-  const [counts, setCounts] = useState(0);
-  const [blockNum, setBlockNum] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  let pageNumber = 0;
-  const sort = "DESC";
-
-  const fetchData = async (pageNumber): Promise<any> => {
-    try {
-      if (isChecked === true) {
-        const res = await axios.get(
-          `${backendServer}/api/v1/posts/recruiting`,
-          {
-            params: {
-              page: pageNumber,
-              size,
-              sort,
-            },
-          }
-        );
-        const projectData = res.data.data;
-        setProjects(projectData);
-        dispatch(setProjectss(projectData));
-        // setTimeout(() => {
-        //   setIsLoading(false);
-        // }, 1000);
-        return projectData;
-      } else {
-        const res = await axios.get(`${backendServer}/api/v1/posts`, {
-          params: {
-            page: pageNumber,
-            size,
-            sort,
-          },
-        });
-        const projectData = res.data.data;
-        setProjects(projectData);
-        dispatch(setProjectss(projectData));
-        // setTimeout(() => {
-        //   setIsLoading(false);
-        // }, 1000);
-        return projectData;
-      }
-    } catch (error) {
-      console.log(error);
-      return [];
-    }
-  };
-
-  useEffect(() => {
-    setIsChecked(false);
-  }, []);
+  const [loadedData, setLoadedData] = useState<Project[]>([]);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const handleSearch = (searchResults: any) => {
     setProjects(searchResults);
   };
 
-  async function loadAllData() {
-    let allData = [];
-    let newData = await fetchData(pageNumber);
+  async function fetchData(pageNumber): Promise<Project[]> {
+    try {
+      const endpoint = isChecked
+        ? `${backendServer}/api/v1/posts/recruiting`
+        : `${backendServer}/api/v1/posts`;
 
-    while (newData.length !== 0) {
-      allData = allData.concat(newData);
-      pageNumber++;
-      newData = await fetchData(pageNumber);
+      const res = await axios.get(endpoint, {
+        params: { page: pageNumber, size },
+      });
+      return res.data.data;
+    } catch (error) {
+      console.log(error);
+      return [];
     }
-    setCounts(allData.length);
+  }
+
+  async function loadAllData() {
+    let allData: Project[] = [];
+    let newData: Project[] = await fetchData(pageNumber);
+
+    while (newData.length > 0) {
+      allData = allData.concat(newData);
+
+      const nextPageNumber = pageNumber + 1;
+      const nextPageData = await fetchData(nextPageNumber);
+
+      if (nextPageData.length > 0) {
+        setPageNumber(nextPageNumber);
+        newData = nextPageData;
+      } else {
+        newData = [];
+      }
+    }
+
+    setLoadedData(allData);
+    setProjects(allData.slice(0, size));
   }
 
   const btnClick = () => {
     setIsChecked((prevState) => !prevState);
+    setPageNumber(0);
   };
 
   useEffect(() => {
     const fetchDataAndLoadData = async () => {
       try {
         await loadAllData();
-        await fetchData(startPage - 1);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchDataAndLoadData();
-  }, [isChecked, startPage]);
+  }, [isChecked, startPage, size]);
 
   // useEffect(() => {
   //   dispatch(setProjectss(projects));
@@ -426,15 +314,13 @@ function Home() {
               <NoticeString>
                 IT관련 프로젝트
                 <br /> 매칭 사이트 Synergy입니다
-                {/* 회원탈퇴 비찿 오류 해결 북마크 팔로우 구현,
-                로딩 창 구현(헤더까지 수정), 필터, 다른프로필,채팅창 */}
               </NoticeString>
             </NoticeBox>
 
             <DotBox>
               <Dot />
             </DotBox>
-
+            {/* <Filter /> */}
             <Toggle>
               <input
                 checked={isChecked}
@@ -452,35 +338,6 @@ function Home() {
           </Wrapper>
         </FlexBox>
       </Container>
-
-      {/* <NoticeBoard notices={ee} /> */}
-      {/* <Filter>
-        <Part>
-          <span onClick={partClick}>프론트엔드</span>
-          <span onClick={partClick}>백엔드</span>
-          <span onClick={partClick}>디자이너</span>
-          <span onClick={partClick}>모바일</span>
-        </Part>
-        <Stack>
-          {stack.map((stack) => (
-            <li onClick={selectClick}>{stack}</li>
-          ))}
-        </Stack>
-        <Select>
-          {select.map((select) => (
-            <li key={select.id} onClick={deleteClick}>
-              {select}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="1em"
-                viewBox="0 0 384 512"
-              >
-                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-              </svg>
-            </li>
-          ))}
-        </Select>
-      </Filter> */}
     </>
   );
 }
