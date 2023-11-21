@@ -18,7 +18,7 @@ export const loginUser = (formData) => {
       );
       const data = res.data.data;
 
-      if (data.user) {
+      if (data) {
         const accessToken = data.accessToken;
         const refreshToken = data.refreshToken;
         localStorage.setItem("accessToken", accessToken);
@@ -126,6 +126,7 @@ export const setProjectss = (projects) => ({
 
 export const againLogin = () => {
   const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
 
   const config = {
     headers: {
@@ -138,18 +139,46 @@ export const againLogin = () => {
         `https://jihyuncap.store/api/v1/users/userTest`,
         config
       );
-      console.log(response.status);
       if (response.status === 200) {
         dispatch({
           type: LOGIN_USER,
           payload: true,
         });
       } else {
-        const response = await axios.post(
+        const refreshResponse = await axios.post(
           `https://jihyuncap.store/api/v1/users/reissue`,
-          config
+          {
+            refreshToken: refreshToken,
+            accessToken: accessToken,
+          }
         );
-        console.log(response);
+
+        const newAccessToken = refreshResponse.data.accessToken;
+        const newRefreshToken = refreshResponse.data.refreshToken;
+
+        localStorage.setItem("accessToken", newAccessToken);
+        localStorage.setItem("refreshToken", newRefreshToken);
+
+        const newConfig = {
+          headers: {
+            Authorization: `Bearer ${newAccessToken}`,
+          },
+        };
+
+        const newResponse = await axios.get(
+          `https://jihyuncap.store/api/v1/users/userTest`,
+          newConfig
+        );
+
+        console.log(newResponse.status);
+        if (newResponse.status === 200) {
+          dispatch({
+            type: LOGIN_USER,
+            payload: true,
+          });
+        } else {
+          console.log("Unauthorized access for userTest");
+        }
       }
     } catch (error) {
       console.error(error);
