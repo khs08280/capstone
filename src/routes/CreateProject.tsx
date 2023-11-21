@@ -107,7 +107,7 @@ const Description = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 6.25rem;
+  margin-top: 2rem;
   margin-bottom: 1.875rem;
   input {
     border-radius: 0.313rem;
@@ -166,7 +166,7 @@ function CreateProject() {
 
   const [title, setTitle] = useState("");
   const [editorContent, setEditorContent] = useState("");
-  const [expectedDuration, setExpectedDuration] = useState("예상 기간 1~4개월");
+  const [expectedDuration, setExpectedDuration] = useState("예상 기간 1~6개월");
   const [recruitmentPeriod, setRecruitmentPeriod] = useState("");
   const [recruitmentSize, setRecruitmentSize] = useState(0);
   const [position, setPosition] = useState<string[]>([]);

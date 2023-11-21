@@ -11,7 +11,7 @@ export const getChatRoom = async (roomName, user, id, callback) => {
   if (user.token && id) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/chatroom/chatList?roomId=${id}`,
+        `ws://3.39.63.104:8080/chatroom/chatList?roomId=${id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

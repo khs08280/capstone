@@ -1,20 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+
 import ChatRoom from "./ChatRoom";
 import ChatList from "./ChatList";
 import { ChatRoomProvider } from "../contexts/chatRoomContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div``;
 
 const StyledArea = styled.section`
   width: 100%;
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
-  height: 100vh;
-  padding: 85px 20px 20px;
+  height: 70vh;
+  padding: 0px 20px 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -31,33 +29,11 @@ const StyledArea = styled.section`
   }
 `;
 
-const ToHome = styled.span`
-  color: dodgerblue;
-  font-weight: 800;
-  margin-top: 200px;
-  font-size: 35px;
-  position: absolute;
-  top: -40px;
-  left: 300px;
-  cursor: pointer;
-  border: none;
-  background-color: inherit;
-`;
-
 const ChatArea = () => {
-  const history = useHistory();
-
-  const goBack = () => {
-    history.push("/");
-  };
-
   return (
     <Container>
       <StyledArea>
         <ChatRoomProvider>
-          <ToHome onClick={goBack}>
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </ToHome>
           <ChatRoom />
           <ChatList />
         </ChatRoomProvider>

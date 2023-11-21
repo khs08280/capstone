@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width: 100%;
   margin: 3.125rem 8% 6.25rem 3%;
-  padding: 3%;
+  padding: 1%;
   background-color: white;
   border: 0.125rem solid #dadce0;
   border-radius: 0.625rem;

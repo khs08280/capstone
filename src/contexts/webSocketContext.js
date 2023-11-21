@@ -17,7 +17,7 @@ export const WebSocketProvider = ({ children }) => {
    */
   const connect = (token) => {
     client.current = new Client({
-      brokerURL: `${process.env.REACT_APP_BASE_URL_WS}/ws-stomp`, // 종단점 지정
+      brokerURL: `ws://3.39.63.104:8080/ws-stomp`, // 종단점 지정
       connectHeaders: {
         // 요청 헤더 config
         Authorization: `Bearer ${accessToken}`,

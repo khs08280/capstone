@@ -178,7 +178,7 @@ const ChatRoom = () => {
     try {
       // 현재 채팅방에서 유저 삭제
       axios.get(
-        `${process.env.REACT_APP_BASE_URL}/chatroom/exitUser?roomId=${chatRoom.id}&username=${user.username}`
+        `ws://3.39.63.104:8080/chatroom/exitUser?roomId=${chatRoom.id}&username=${user.username}`
       );
       // 유저 삭제 후 채팅방 목록 다시 조회
       getChatList(user.token, (data) => {

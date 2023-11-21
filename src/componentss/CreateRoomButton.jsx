@@ -11,7 +11,7 @@ const CreateBtn = styled.div`
   border: 3px solid white;
   color: white;
   background-color: dodgerblue;
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 10px;
   cursor: pointer;
   margin-right: 10px;
@@ -64,7 +64,7 @@ const CreateRoomButton = () => {
     // 필요한 데이터가 존재할 경우 계속합니다.
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/chatroom/CreateRoom`,
+        `ws://3.39.63.104:8080/chatroom/CreateRoom`,
         {
           roomName: roomTitle,
           username: targetUsername,

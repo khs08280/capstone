@@ -119,10 +119,10 @@ const MyProject = styled.div`
 
 const ProejctBox = styled.div`
   background-color: white;
-  padding: 1.25rem 0.625rem;
-  font-size: 1.563rem;
+  font-size: 1.3rem;
   font-weight: 600;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 1px solid #dadce0;
@@ -141,19 +141,20 @@ const DeleteUser = styled.div`
 `;
 
 const BookmarkBox = styled.div`
+  background-color: white;
+  font-size: 1.3rem;
+  font-weight: 600;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background-color: white;
-  padding: 1.25rem;
-  padding-bottom: 1.25rem;
-  font-size: 1.563rem;
-  font-weight: 600;
-  border: 0.063rem solid #dadce0;
+  border: 1px solid #dadce0;
 `;
 
 const Bookmark = styled.span`
-  margin: 0.625rem;
+  margin-top: 0.625rem;
+  border-bottom: 0.063rem solid #dadce0;
+  padding-bottom: 0.625rem;
 `;
 
 function Profile() {
@@ -164,19 +165,57 @@ function Profile() {
     introduction: string;
     image: string;
   }
+  interface Project {
+    id: number;
+    position: string[];
+    recruitmentPeriod: string;
+    techStack: string[];
+    title: string;
+    content: string;
+    totalCommentsAndReplies: number;
+    userId: number;
+    username: string;
+    view: number;
+    isBookmark: boolean;
+  }
 
   const backendServer = process.env.REACT_APP_BASE_URL;
 
   const history = useHistory();
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [pageNumber, setPageNumber] = useState(0);
+
   const [user, setUser] = useState<User | null>(null);
   const [bookmarks, setBookmarks] = useState<any[]>([]);
   const accessToken = localStorage.getItem("accessToken");
+  const [size, setSize] = useState(15);
 
   const config = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const endpoint = `https://jihyuncap.store/api/v1/posts`;
+
+        const res = await axios.get(endpoint, {
+          params: { page: pageNumber, size },
+        });
+
+        const filteredProjects = res.data.data.filter(
+          (project) => project.username === user?.username
+        );
+
+        setProjects(filteredProjects);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [pageNumber, size, user]);
 
   useEffect(() => {
     axios
@@ -249,7 +288,15 @@ function Profile() {
             <MyProject>
               <h1>내 프로젝트</h1>
               <ProejctBox>
-                <span>모집 중인 프로젝트가 없어요</span>
+                {projects.length === 0 ? (
+                  <span>북마크한 프로젝트가 없어요</span>
+                ) : (
+                  projects.map((project) => (
+                    <Bookmark>
+                      <Link to={`/${project.id}`}>{project.title}</Link>
+                    </Bookmark>
+                  ))
+                )}
               </ProejctBox>
             </MyProject>
             <MyProject>
