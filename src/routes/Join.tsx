@@ -102,7 +102,7 @@ function Join() {
     event.preventDefault();
     axios({
       method: "post",
-      url: `${backendServer}/api/v1/users/sign-up`,
+      url: `https://jihyuncap.store/api/v1/users/sign-up`,
       data: formData,
     })
       .then((res) => {
