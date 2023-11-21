@@ -109,11 +109,15 @@ function FindPassword() {
   const btnPrevent = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(`${backendServer}/api/v1/users/forgot-password`, null, {
-        params: {
-          email,
-        },
-      });
+      await axios.post(
+        `https://jihyuncap.store/api/v1/users/forgot-password`,
+        null,
+        {
+          params: {
+            email,
+          },
+        }
+      );
     } catch (error: any) {
       setErrorMessage(
         error.response?.data?.message?.split(",")[0] || "오류가 발생했습니다"

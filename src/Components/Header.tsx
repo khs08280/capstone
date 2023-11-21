@@ -174,11 +174,11 @@ function Header() {
       try {
         if (isLogin) {
           const notificationsResponse = await axios.get(
-            `${backendServer}/api/v1/notifications`,
+            `https://jihyuncap.store/api/v1/notifications`,
             config
           );
           const countResponse = await axios.get(
-            `${backendServer}/api/v1/notifications/count`,
+            `https://jihyuncap.store/api/v1/notifications/count`,
             config
           );
           setNotifications(notificationsResponse.data.data);
@@ -195,7 +195,7 @@ function Header() {
   const handleNotifi = (notificationId) => {
     axios({
       method: "patch",
-      url: `${backendServer}/api/v1/notifications/${notificationId}`,
+      url: `https://jihyuncap.store/api/v1/notifications/${notificationId}`,
       headers: config.headers,
     }).then((res) => {
       console.log(res.data);

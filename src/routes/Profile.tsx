@@ -180,7 +180,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get(`${backendServer}/api/v1/users/me`, config)
+      .get(`https://jihyuncap.store/api/v1/users/me`, config)
       .then((res) => {
         const userData = res.data.data;
         setUser(userData);
@@ -194,7 +194,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get(`${backendServer}/bookmark`, config)
+      .get(`https://jihyuncap.store/bookmark`, config)
       .then((res) => {
         setBookmarks(res.data.data);
       })

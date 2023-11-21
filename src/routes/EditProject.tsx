@@ -240,11 +240,14 @@ function EditProject() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${backendServer}/api/v1/posts/${postId}`, {
-          params: {
-            postId: postId,
-          },
-        });
+        const res = await axios.get(
+          `https://jihyuncap.store/api/v1/posts/${postId}`,
+          {
+            params: {
+              postId: postId,
+            },
+          }
+        );
         const projectData = res.data.data;
         console.log(projectData);
 
@@ -312,7 +315,7 @@ function EditProject() {
     console.log(body, config);
 
     axios
-      .patch(`${backendServer}/api/v1/posts/${postId}`, body, config)
+      .patch(`https://jihyuncap.store/api/v1/posts/${postId}`, body, config)
       .then((res) => {
         console.log(res);
         history.push(`/${postId}`);

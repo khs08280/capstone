@@ -294,7 +294,7 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
       if (onSearch) {
         axios({
           method: "get",
-          url: `${backendServer}/api/v1/posts/search`,
+          url: `https://jihyuncap.store/api/v1/posts/search`,
           params: { query: searchContent },
         })
           .then((res) => {
@@ -318,7 +318,7 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
     if (isLogin) {
       if (isBookmarked == false) {
         axios
-          .post(`${backendServer}/bookmark`, null, {
+          .post(`https://jihyuncap.store/bookmark`, null, {
             params: {
               postId: projectId,
             },
@@ -348,7 +348,7 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
 
             axios({
               method: "delete",
-              url: `${backendServer}/bookmark/${bookmarkId}`,
+              url: `https://jihyuncap.store/bookmark/${bookmarkId}`,
               headers: config.headers,
             })
               .then((res) => {
@@ -381,7 +381,7 @@ function ProjectList({ projectss, onSearch }: ProjectListProps) {
 
   const fetchDataAndSetBookmarks = async () => {
     try {
-      const res = await axios.get(`${backendServer}/bookmark`, config);
+      const res = await axios.get(`https://jihyuncap.store/bookmark`, config);
       setBookmkData(res.data.data);
       const updatedProjects = projectss.map((project) => {
         const isBookmarked = bookmkData.some(

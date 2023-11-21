@@ -54,7 +54,11 @@ const FileUpload = () => {
       formData.append("image", selectedFile);
 
       axios
-        .patch(`${backendServer}/api/v1/users/upload-image`, formData, config)
+        .patch(
+          `https://jihyuncap.store/api/v1/users/upload-image`,
+          formData,
+          config
+        )
         .then((res) => {
           const profileURL = res.data.data.image;
           console.log("Profile Image URL:", profileURL);

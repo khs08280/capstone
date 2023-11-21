@@ -296,14 +296,14 @@ function Project() {
     const fetchData = async () => {
       try {
         const postRes = await axios.get(
-          `${backendServer}/api/v1/posts/${postId}`
+          `https://jihyuncap.store/api/v1/posts/${postId}`
         );
         const projectData = postRes.data.data;
         setProject(projectData);
         console.log(projectData);
 
         const commentRes = await axios.get(
-          `${backendServer}/api/v1/posts/${postId}/comments`
+          `https://jihyuncap.store/api/v1/posts/${postId}/comments`
         );
         setComments(commentRes.data.data);
       } catch (error) {
@@ -326,7 +326,7 @@ function Project() {
     if (confirmed) {
       axios
         .patch(
-          `${backendServer}/api/v1/posts/${postId}/complete`,
+          `https://jihyuncap.store/api/v1/posts/${postId}/complete`,
           postId,
           config
         )
@@ -345,7 +345,7 @@ function Project() {
     const confirmed = window.confirm("모집 글을 삭제하시겠습니까?");
     if (confirmed) {
       axios
-        .delete(`${backendServer}/api/v1/posts/${postId}`, {
+        .delete(`https://jihyuncap.store/api/v1/posts/${postId}`, {
           params: {
             postId: postId,
           },
@@ -371,13 +371,13 @@ function Project() {
     event.preventDefault();
     axios({
       method: "post",
-      url: `${backendServer}/api/v1/posts/${postId}/comments`,
+      url: `https://jihyuncap.store/api/v1/posts/${postId}/comments`,
       params: { content },
       headers: config.headers,
     })
       .then(async (res) => {
         const commentRes = await axios.get(
-          `${backendServer}/api/v1/posts/${postId}/comments`
+          `https://jihyuncap.store/api/v1/posts/${postId}/comments`
         );
         setComments(commentRes.data.data);
 
@@ -425,12 +425,12 @@ function Project() {
     if (confirmed) {
       axios({
         method: "patch",
-        url: `${backendServer}/api/v1/posts/${postId}/comments/${commentId}`,
+        url: `https://jihyuncap.store/api/v1/posts/${postId}/comments/${commentId}`,
         params: { content: editedContent },
         headers: config.headers,
       }).then(async (res) => {
         const commentRes = await axios.get(
-          `${backendServer}/api/v1/posts/${postId}/comments`
+          `https://jihyuncap.store/api/v1/posts/${postId}/comments`
         );
         setComments(commentRes.data.data);
         setEditedContent("");
@@ -443,13 +443,13 @@ function Project() {
     if (confirmed) {
       axios({
         method: "patch",
-        url: `${backendServer}/api/v1/posts/${postId}/comments/replies/${replyId}`,
+        url: `https://jihyuncap.store/api/v1/posts/${postId}/comments/replies/${replyId}`,
         params: { content: editedContent },
         headers: config.headers,
       })
         .then(async (res) => {
           const commentRes = await axios.get(
-            `${backendServer}/api/v1/posts/${postId}/comments`
+            `https://jihyuncap.store/api/v1/posts/${postId}/comments`
           );
           setComments(commentRes.data.data);
           setEditedContent("");
@@ -466,11 +466,11 @@ function Project() {
     if (confirmed) {
       axios({
         method: "delete",
-        url: `${backendServer}/api/v1/posts/${postId}/comments/${commentId}`,
+        url: `https://jihyuncap.store/api/v1/posts/${postId}/comments/${commentId}`,
         headers: config.headers,
       }).then(async (res) => {
         const commentRes = await axios.get(
-          `${backendServer}/api/v1/posts/${postId}/comments`
+          `https://jihyuncap.store/api/v1/posts/${postId}/comments`
         );
         setComments(commentRes.data.data);
         const ex = commentRes.data.data.find(
@@ -487,11 +487,11 @@ function Project() {
     if (confirmed) {
       axios({
         method: "delete",
-        url: `${backendServer}/api/v1/posts/${postId}/comments/replies/${repleId}`,
+        url: `https://jihyuncap.store/api/v1/posts/${postId}/comments/replies/${repleId}`,
         headers: config.headers,
       }).then(async (res) => {
         const commentRes = await axios.get(
-          `${backendServer}/api/v1/posts/${postId}/comments`
+          `https://jihyuncap.store/api/v1/posts/${postId}/comments`
         );
         setComments(commentRes.data.data);
         setContent("");
@@ -503,12 +503,12 @@ function Project() {
   const createReple = (commentId) => {
     axios({
       method: "post",
-      url: `${backendServer}/api/v1/posts/${postId}/comments/${commentId}/replies`,
+      url: `https://jihyuncap.store/api/v1/posts/${postId}/comments/${commentId}/replies`,
       params: { content: repleContent },
       headers: config.headers,
     }).then(async (res) => {
       const commentRes = await axios.get(
-        `${backendServer}/api/v1/posts/${postId}/comments`
+        `https://jihyuncap.store/api/v1/posts/${postId}/comments`
       );
       setComments(commentRes.data.data);
       setEditedContent("");

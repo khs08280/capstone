@@ -114,7 +114,7 @@ function FindId() {
     event.preventDefault();
     try {
       const response = await axios.get(
-        `${backendServer}/api/v1/users/forgot-username`,
+        `https://jihyuncap.store/api/v1/users/forgot-username`,
         {
           params: { email: email },
         }

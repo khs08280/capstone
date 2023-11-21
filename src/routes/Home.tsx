@@ -247,8 +247,8 @@ function Home() {
   async function fetchData(pageNumber): Promise<Project[]> {
     try {
       const endpoint = isChecked
-        ? `${backendServer}/api/v1/posts/recruiting`
-        : `${backendServer}/api/v1/posts`;
+        ? `https://jihyuncap.store/api/v1/posts/recruiting`
+        : `https://jihyuncap.store/api/v1/posts`;
 
       const res = await axios.get(endpoint, {
         params: { page: pageNumber, size },

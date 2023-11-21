@@ -114,7 +114,7 @@ function EditProfile() {
       },
     };
     await axios
-      .patch(`${backendServer}/api/v1/users/me`, body, config)
+      .patch(`https://jihyuncap.store/api/v1/users/me`, body, config)
       .then((res) => {
         console.log(res);
         user.introduction = introduction;

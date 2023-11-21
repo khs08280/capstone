@@ -34,7 +34,7 @@ const Comment = ({
   const handleSaveClick = () => {
     axios({
       method: "post",
-      url: `${backendServer}/api/v1/posts/${postId}/comments/${commentId}`,
+      url: `https://jihyuncap.store/api/v1/posts/${postId}/comments/${commentId}`,
       params: { content: editedContent },
       headers: config.headers,
     });

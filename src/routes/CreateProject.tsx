@@ -269,7 +269,7 @@ function CreateProject() {
     };
     axios({
       method: "post",
-      url: `${backendServer}/api/v1/posts`,
+      url: `https://jihyuncap.store/api/v1/posts`,
       data: body,
       headers: config.headers,
     })

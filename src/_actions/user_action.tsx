@@ -18,7 +18,7 @@ export const loginUser = (formData) => {
       );
       const data = res.data.data;
 
-      if (data) {
+      if (data.user) {
         const accessToken = data.accessToken;
         const refreshToken = data.refreshToken;
         localStorage.setItem("accessToken", accessToken);
@@ -30,7 +30,7 @@ export const loginUser = (formData) => {
           },
         };
         const userRes = await axios.get(
-          `${backendServer}/api/v1/users/me`,
+          `https://jihyuncap.store/api/v1/users/me`,
           config
         );
         const userData = userRes.data;
@@ -64,7 +64,7 @@ export const logoutUser = (accessToken) => {
   };
   axios({
     method: "post",
-    url: `${backendServer}/api/v1/users/logout`,
+    url: `https://jihyuncap.store/api/v1/users/logout`,
     headers: config.headers,
   })
     .then(async (res) => {
@@ -101,14 +101,17 @@ export const deleteUser = (formData) => {
           Authorization: `Bearer ${accessToken}`,
         },
       };
-      const response = await axios.delete(`${backendServer}/api/v1/users/me`, {
-        headers: {
-          Authorization: config.headers.Authorization,
-        },
-        data: {
-          formData,
-        },
-      });
+      const response = await axios.delete(
+        `https://jihyuncap.store/api/v1/users/me`,
+        {
+          headers: {
+            Authorization: config.headers.Authorization,
+          },
+          data: {
+            formData,
+          },
+        }
+      );
       dispatch({ type: "DELETE_USER_SUCCESS", payload: response.data });
     } catch (error) {
       dispatch({ type: "DELETE_USER_FAILURE" });
@@ -132,7 +135,7 @@ export const againLogin = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `${backendServer}/api/v1/users/userTest`,
+        `https://jihyuncap.store/api/v1/users/userTest`,
         config
       );
       console.log(response.status);
@@ -143,7 +146,7 @@ export const againLogin = () => {
         });
       } else {
         const response = await axios.post(
-          `${backendServer}/api/v1/users/reissue`,
+          `https://jihyuncap.store/api/v1/users/reissue`,
           config
         );
         console.log(response);
