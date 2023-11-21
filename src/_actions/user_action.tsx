@@ -16,10 +16,11 @@ export const loginUser = (formData) => {
         `https://jihyuncap.store/api/v1/users/login`,
         formData
       );
-      const data = res.data;
+      const data = res.data.data;
 
       if (data) {
-        const { accessToken, refreshToken } = data;
+        const accessToken = data.accessToken;
+        const refreshToken = data.refreshToken;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
 
@@ -39,14 +40,9 @@ export const loginUser = (formData) => {
           type: LOGIN_USER,
           payload: true,
         });
-      } else {
-        dispatch({
-          type: LOGIN_USER,
-          payload: false,
-        });
       }
     } catch (error: any) {
-      console.error(error);
+      console.log(error);
       dispatch(
         showErrorMessage(
           error.response?.data?.message?.split(",")[0] || "오류가 발생했습니다"
