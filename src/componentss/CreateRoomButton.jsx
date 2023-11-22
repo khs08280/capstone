@@ -64,7 +64,7 @@ const CreateRoomButton = () => {
     // 필요한 데이터가 존재할 경우 계속합니다.
     try {
       const response = await axios.post(
-        `ws://3.39.63.104:8080/chatroom/CreateRoom`,
+        `wss://jihyuncap.store/chatroom/CreateRoom`,
         {
           roomName: roomTitle,
           username: targetUsername,

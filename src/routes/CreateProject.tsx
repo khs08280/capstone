@@ -175,8 +175,8 @@ function CreateProject() {
 
   const backendServer = process.env.REACT_APP_BASE_URL;
 
-  const people = [0, 1, 2, 3, 4, 5];
-  const duration = [0, 1, 2, 3, 4, 5, 6];
+  const people = ["미정", 1, 2, 3, 4, 5];
+  const duration = ["미정", 1, 2, 3, 4, 5, 6];
   const connection = ["1대1 채팅", "카카오톡 오픈채팅"];
   const positionArray = [
     "FRONTEND",

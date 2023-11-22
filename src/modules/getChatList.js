@@ -9,7 +9,7 @@ export const getChatList = async (token, callback) => {
   if (token) {
     try {
       const response = await axios.get(
-        `ws://3.39.63.104:8080/chatroom/chatRoomList`,
+        `wss://jihyuncap.store/chatroom/chatRoomList`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

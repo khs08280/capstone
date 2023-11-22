@@ -17,18 +17,17 @@ export const WebSocketProvider = ({ children }) => {
    */
   const connect = (token) => {
     client.current = new Client({
-      brokerURL: `ws://3.39.63.104:8080/ws-stomp`, // 종단점 지정
+      brokerURL: `ws://jihyuncap.store/ws-stomp`,
       connectHeaders: {
-        // 요청 헤더 config
         Authorization: `Bearer ${accessToken}`,
         Connection: "upgrade",
         Upgrade: "websocket",
       },
-      reconnectDelay: 5000, // 연결 실패시 자동 재연결 지연시간
+      reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       debug: (str) => {
-        console.log(str); // 디버그 메시지 출력
+        console.log(str);
       },
       onStompError: (frame) => {
         console.log("Broker reported error: " + frame.headers["message"]);

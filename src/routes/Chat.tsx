@@ -5,7 +5,6 @@ import {
   useWebSocketContext,
   WebSocketProvider,
 } from "../contexts/webSocketContext";
-import { getUserToken } from "../modules/getUserToken";
 import ChatArea from "../componentss/ChatArea";
 import { ChatListProvider } from "../contexts/chatListContext";
 import ChatHeader from "../componentss/ChatHeader";
@@ -68,7 +67,6 @@ const Auth = ({ children }) => {
       console.log("토큰이 저장되어있습니다.");
     } else {
       console.log("토큰을 불러옵니다.");
-      getUserToken();
     }
 
     const token = localStorage.getItem("accessToken");
