@@ -178,7 +178,7 @@ const ChatRoom = () => {
     try {
       // 현재 채팅방에서 유저 삭제
       axios.get(
-        `wss://jihyuncap.store/chatroom/exitUser?roomId=${chatRoom.id}&username=${user.username}`
+        `https://jihyuncap.store/chatroom/exitUser?roomId=${chatRoom.id}&username=${user.username}`
       );
       // 유저 삭제 후 채팅방 목록 다시 조회
       getChatList(user.token, (data) => {

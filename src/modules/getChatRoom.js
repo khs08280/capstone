@@ -11,7 +11,7 @@ export const getChatRoom = async (roomName, user, id, callback) => {
   if (user.token && id) {
     try {
       const response = await axios.get(
-        `wss://jihyuncap.store/chatroom/chatList?roomId=${id}`,
+        `https://jihyuncap.store/chatroom/chatList?roomId=${id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
