@@ -72,7 +72,7 @@ const UserImage = styled.img`
 const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 5.125rem;
+  margin-right: 3.125rem;
   span:first-child {
     margin-bottom: 0.625rem;
     color: rgba(0, 0, 0, 1);
