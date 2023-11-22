@@ -47,8 +47,8 @@ const StyledBubble = styled.li`
 const Bubble = ({ isMe, sender, message, createDate }) => {
   const time = new Date(createDate);
   const timeObj = {
-    period: time.getHours() < 12 ? "오전" : "오후",
-    hours: String(time.getHours()),
+    period: time.getHours() + 9 < 12 ? "오전" : "오후",
+    hours: String(time.getHours() + 9),
     minutes: String(time.getMinutes()).padStart(2, "0"),
   };
 
