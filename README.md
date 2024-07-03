@@ -29,7 +29,7 @@
   </figure>
     <figure style="display: flex; flex-direction: column; align-items:center; width: 50%;">
     <figcaption>채팅 화면</figcaption>
-    <img src="./채팅.PNG" alt="채팅화면" style="" />
+    <img src="./public/채팅.PNG" alt="채팅화면" style="" />
   </figure>
 </div>
 
